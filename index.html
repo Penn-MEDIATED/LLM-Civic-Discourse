@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLMs and Civic Discourse — Literature Review Dashboard</title>
+  <meta name="description" content="An interactive dashboard of research papers on LLM bias, censorship, persuasion, and civic discourse." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: #f8f7f4;
+      color: #2c2a26;
+      -webkit-font-smoothing: antialiased;
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    select option { background: #fff; color: #4a4840; }
+    ::placeholder { color: #b0ada6; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.9/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState, useMemo } = React;
+
+    const papers = [
+      {
+        id: 1,
+        authors: "Buyl, M., Rogiers, A., Noels, S., Bied, G., Dominguez-Catena, I., Heiter, E., ... & De Bie, T.",
+        year: 2026,
+        title: "Large language models reflect the ideology of their creators",
+        journal: "npj Artificial Intelligence",
+        summary: "Shows how LLM behavior is shaped by design and training data. A diverse panel of 19 popular LLMs was prompted to describe 3,991 prominent persons with political relevance, then judge how positively they portray each person. Design choices by developers impact political responses, with clear differences stemming from language used and geographic origin.",
+        tags: ["Bias", "Ideology", "Cross-model comparison"],
+      },
+      {
+        id: 2,
+        authors: "Noels, S., Bied, G., Buyl, M., Rogiers, A., Fettach, Y., Lijffijt, J., & De Bie, T.",
+        year: 2025,
+        title: "What large language models do not talk about: An empirical study of moderation and censorship practices",
+        journal: "Joint European Conference on ML & KDD",
+        summary: "Empirically investigates whether LLMs refuse to answer or omit information when prompted on political topics. Patterns in LLM censorship vary widely, but censorship is more common for prominent individuals that are domestic to the LLM developer.",
+        tags: ["Censorship", "Content moderation", "Cross-model comparison"],
+      },
+      {
+        id: 3,
+        authors: "Melumad, S., & Yun, J. H.",
+        year: 2025,
+        title: "Experimental evidence of the effects of large language models versus web search on depth of learning",
+        journal: "PNAS nexus",
+        summary: "Compares LLM summaries and traditional search on learning outcomes. LLMs reduce the effort to find information, but users of LLM summaries developed shallower understanding of topics and produced advice that was less useful to others than advice based on web search.",
+        tags: ["Information retrieval", "User behavior"],
+      },
+      {
+        id: 4,
+        authors: "DeVerna, M. R., Yang, K. C., Yan, H. Y., & Menczer, F.",
+        year: 2025,
+        title: "Large Language Models Require Curated Context for Reliable Political Fact-Checking",
+        journal: "Preprint",
+        summary: "Assessed how LLMs perform at fact-checking based on 6,000 claims vetted by PolitiFact. Standard models perform poorly; web search and advanced reasoning help slightly, but providing curated high-quality context is the most effective improvement strategy.",
+        tags: ["Fact-checking", "Misinformation", "Information retrieval"],
+      },
+      {
+        id: 5,
+        authors: "Rettenberger, L., Reischl, M., & Schutera, M.",
+        year: 2025,
+        title: "Assessing political bias in large language models",
+        journal: "Journal of Computational Social Science",
+        summary: "Assesses political bias prevalence among open-source LLMs in the European Union. Larger models like Llama3 aligned more closely with left-leaning political parties, while smaller models remained relatively neutral.",
+        tags: ["Bias", "Ideology"],
+      },
+      {
+        id: 6,
+        authors: "Black, S., Lin, H., Fist, C., Margetts, H., Rand, D. G., & Summerfield, C.",
+        year: 2025,
+        title: "The Levers of Political Persuasion with Conversational AI",
+        journal: "Preprint",
+        summary: "Evaluated 19 LLMs on persuasiveness about political topics. Post-training and prompting methods increased persuasive power more than personalization or model scale. Notably, higher persuasiveness was associated with lower factual accuracy.",
+        tags: ["Persuasion", "Misinformation", "Cross-model comparison"],
+      },
+      {
+        id: 7,
+        authors: "Pan, J., & Xu, X.",
+        year: 2026,
+        title: "Political censorship in large language models originating from China",
+        journal: "PNAS nexus",
+        summary: "Examined government censorship as a source of LLM bias in China, comparing Chinese-developed LLMs to those from elsewhere across 145 political questions. China-originating models had more inaccurate responses and higher refusal rates. Language differences were less pronounced than geographic-origin disparities.",
+        tags: ["Censorship", "Bias"],
+      },
+      {
+        id: 8,
+        authors: "Hopkins, S. A., Costello, T., Pennycook, G., & Rand, D.",
+        year: 2026,
+        title: "Dialogues on Democracy: Belief-Tailored AI Conversations Reduce Inaccurate Election Denial Beliefs",
+        journal: "Preprint",
+        summary: "Conducted two experiments assessing whether LLM conversations can inoculate against election denialism claims. Both interventions reduced confidence in conspiratorial claims, with participants holding the strongest baseline election denial beliefs experiencing the largest decreases.",
+        tags: ["Persuasion", "Misinformation", "User behavior"],
+      },
+      {
+        id: 9,
+        authors: "Dai, Y., Lurie, E., Metaxa, D., & Friedler, S. A.",
+        year: 2025,
+        title: "Longitudinal Monitoring of LLM Content Moderation of Social Issues",
+        journal: "Preprint",
+        summary: "Introduces a longitudinal auditing system to publicly measure and track LLM content refusals over time. Audited OpenAI's models, moderation endpoint, and DeepSeek using 400+ social issues, finding that undisclosed policy changes by companies can be detected via longitudinal monitoring.",
+        tags: ["Content moderation", "Censorship", "Auditing"],
+      },
+      {
+        id: 10,
+        authors: "Cen, S. H., Ilyas, A., Driss, H., Park, C., Hopkins, A., & Podimata, C.",
+        year: 2025,
+        title: "Large-Scale, Longitudinal Study of Large Language Models During the 2024 US Election Season",
+        journal: "Preprint",
+        summary: "Examined how 12 LLMs responded to over 12,000 election-related queries over a five-month period leading up to the 2024 U.S. presidential election. The resulting dataset of LLM responses was released to enable future research.",
+        tags: ["Cross-model comparison", "Auditing", "Dataset"],
+      },
+      {
+        id: 11,
+        authors: "Metaxa, D., & Friedler, S.",
+        year: 2025,
+        title: "Identity-related Speech Suppression in Generative AI Content Moderation",
+        journal: "Preprint",
+        summary: "Provides a benchmark for measuring speech suppression across nine identity groups. Across one traditional and four generative AI-focused content moderation services tested, identity-related speech is more likely to be incorrectly suppressed than other speech.",
+        tags: ["Content moderation", "Censorship", "Bias"],
+      },
+      {
+        id: 12,
+        authors: "Lazar, S., & Manuali, L.",
+        year: 2024,
+        title: "Can LLMs advance democratic values?",
+        journal: "Preprint",
+        summary: "Explores whether LLMs can help improve democratic deliberation and decision making. While LLMs may not be a good replacement for decision making, they can help strengthen the informal public sphere by improving information access and allowing citizens to hold leaders to account.",
+        tags: ["Democracy"],
+      },
+      {
+        id: 13,
+        authors: "Fulay, S., Brannon, W., Mohanty, S., Overney, C., Poole-Dayan, E., Roy, D., & Kabbara, J.",
+        year: 2024,
+        title: "On the Relationship between Truth and Political Bias in Language Models",
+        journal: "EMNLP 2024",
+        summary: "Suggests that optimizing reward models for truthfulness tends to result in a left-leaning political bias. If truthfulness informs model training and leads to a left-leaning bias, it would be difficult to align models to be both truthful and politically unbiased.",
+        tags: ["Bias", "Ideology", "Fact-checking"],
+      },
+      {
+        id: 14,
+        authors: "Fan, W., & Xu, W.",
+        year: 2025,
+        title: "Artificial Intelligence and Civil Discourse: How LLMs Moderate Climate Change Conversations",
+        journal: "Preprint",
+        summary: "Examines how LLMs moderate conversations about climate change via communication style. LLMs are more emotionally neutral than human users and maintain lower emotional intensity, suggesting inherent moderating capacities that could improve public discourse on controversial topics.",
+        tags: ["Discourse", "Persuasion", "User behavior"],
+      },
+      {
+        id: 15,
+        authors: "Wang, G., Anbudurai, S., Sun, O., Li, X., & Wu, L.",
+        year: 2026,
+        title: "Large Language Models Polarize Ideologically but Moderate Affectively in Online Political Discourse",
+        journal: "Preprint",
+        summary: "Explores how ChatGPT's release altered ideological and emotional patterns on Reddit's politics subreddit. ChatGPT intensified ideological polarization \u2014 liberals became more liberal, conservatives more conservative \u2014 not through persuasive original content, but because ChatGPT-generated comments tend to echo and reinforce original posts, consistent with algorithmic sycophancy.",
+        tags: ["Ideology", "User behavior"],
+      },
+      {
+        id: 16,
+        authors: "Pistilli, G., Leidinger, A., Jernite, Y., Kasirzadeh, A., Luccioni, A. S., & Mitchell, M.",
+        year: 2024,
+        title: "CIVICS: Building a dataset for examining culturally-informed values in large language models",
+        journal: "AAAI/ACM Conference on AI, Ethics, and Society",
+        summary: "Introduces the CIVICS dataset, designed to evaluate social and cultural variation of LLMs towards socially sensitive topics across multiple languages and cultures.",
+        tags: ["Dataset", "Bias", "Cross-model comparison"],
+      },
+      {
+        id: 17,
+        authors: "Smirnov, O.",
+        year: 2026,
+        title: "The Language You Ask In: Language-Conditioned Ideological Divergence in LLM Analysis of Contested Political Documents",
+        journal: "Preprint",
+        summary: "Finds that varying the language (Russian or Ukrainian) used to prompt LLMs led to variation in rhetorical positioning, ideological orientation, and interpretive conclusions produced by the models.",
+        tags: ["Bias", "Ideology"],
+      },
+      {
+        id: 18,
+        authors: "Coeckelbergh, M.",
+        year: 2025,
+        title: "LLMs, truth, and democracy: An overview of risks",
+        journal: "Science and Engineering Ethics",
+        summary: "Provides a philosophical perspective on the potential epistemic and democratic risks of widespread use of LLMs, examining threats to truth and democratic functioning.",
+        tags: ["Democracy", "Misinformation"],
+      },
+      {
+        id: 19,
+        authors: "Buscemi, A., & Proverbio, D.",
+        year: 2024,
+        title: "Large language models\u2019 detection of political orientation in newspapers",
+        journal: "Preprint",
+        summary: "Compared four popular LLMs on how they position newspapers politically and whether responses are consistent across models. Articles were positioned very differently by different LLMs, hinting at inconsistent training or excessive randomness in the algorithms.",
+        tags: ["Bias", "Cross-model comparison", "Ideology"],
+      },
+      {
+        id: 20,
+        authors: "Argyle, L. P., Bail, C. A., Busby, E. C., Gubler, J. R., Howe, T., Rytting, C., ... & Wingate, D.",
+        year: 2023,
+        title: "Leveraging AI for democratic discourse: Chat interventions can improve online political conversations at scale",
+        journal: "Proceedings of the National Academy of Sciences",
+        summary: "Developed an AI chat assistant that makes real-time, evidence-based suggestions in divisive online political conversations. In a randomized controlled trial, access to the assistant increased partner-reported quality of conversation and both participants\u2019 willingness to let political opponents express and advocate their views publicly.",
+        tags: ["Democracy", "Discourse", "Persuasion"],
+      },
+      {
+        id: 21,
+        authors: "Karadal, P., & Kekulluoglu, D.",
+        year: 2025,
+        title: "Prioritize Economy or Climate Action? Investigating ChatGPT Response Differences Based on Inferred Political Orientation",
+        journal: "Preprint",
+        summary: "Explores how inferred political views (using personas) impact ChatGPT\u2019s responses globally. ChatGPT\u2019s reasoning and language choices are shaped by how it infers political views, and the democratic persona was closest to the neutral one, supporting the observation that ChatGPT\u2019s outputs lean left.",
+        tags: ["Bias", "Ideology", "User behavior"],
+      },
+      {
+        id: 22,
+        authors: "Fisher, J., Feng, S., Aron, R., Richardson, T., Choi, Y., Fisher, D. W., ... & Reinecke, K.",
+        year: 2025,
+        title: "Biased LLMs can influence political decision-making",
+        journal: "ACL 2025",
+        summary: "Presents two experiments investigating effects of partisan bias in LLMs on political opinions and decision-making. Participants mirrored the biases displayed by LLMs, and these findings persisted even when the model bias and participant\u2019s personal political partisanship were opposite.",
+        tags: ["Bias", "Persuasion", "User behavior"],
+      },
+    ];
+
+    const allTags = [...new Set(papers.flatMap((p) => p.tags))].sort();
+
+    const SORT_OPTIONS = [
+      { value: "year-desc", label: "Year (newest)" },
+      { value: "year-asc", label: "Year (oldest)" },
+      { value: "title-asc", label: "Title (A\u2013Z)" },
+      { value: "title-desc", label: "Title (Z\u2013A)" },
+      { value: "authors-asc", label: "Author (A\u2013Z)" },
+    ];
+
+    const TAG_COLORS = {
+      "Bias": { bg: "#fef3ee", border: "#c2673a", text: "#9e4f26" },
+      "Ideology": { bg: "#fef8ee", border: "#b8942e", text: "#8a6e1c" },
+      "Cross-model comparison": { bg: "#eef8f4", border: "#2e8a62", text: "#1e6b4a" },
+      "Censorship": { bg: "#f6eef8", border: "#8a3e8a", text: "#6e2e6e" },
+      "Content moderation": { bg: "#f0eef8", border: "#5e4a9e", text: "#4a3880" },
+      "Information retrieval": { bg: "#eef7f7", border: "#3a9a9a", text: "#2a7a7a" },
+      "User behavior": { bg: "#f2f6ee", border: "#5e8a2e", text: "#4a6e1e" },
+      "Fact-checking": { bg: "#fdf0f2", border: "#b83a52", text: "#922a40" },
+      "Misinformation": { bg: "#fdf0f0", border: "#b83a3a", text: "#922a2a" },
+      "Persuasion": { bg: "#fdf8ee", border: "#aa8a2e", text: "#886e1c" },
+      "Auditing": { bg: "#f0f6ee", border: "#3e8a3e", text: "#2e6e2e" },
+      "Democracy": { bg: "#eef2f8", border: "#3a68aa", text: "#2a5088" },
+      "Dataset": { bg: "#f5f5ee", border: "#7a7a2e", text: "#5e5e1c" },
+      "Discourse": { bg: "#f0f6ee", border: "#4a8a2e", text: "#3a6e1e" },
+    };
+
+    function getTagStyle(tag) {
+      return TAG_COLORS[tag] || { bg: "#f4f4f2", border: "#888", text: "#555" };
+    }
+
+    function Dashboard() {
+      const [sort, setSort] = useState("year-desc");
+      const [activeTags, setActiveTags] = useState([]);
+      const [search, setSearch] = useState("");
+      const [expandedId, setExpandedId] = useState(null);
+
+      const toggleTag = (tag) => {
+        setActiveTags((prev) =>
+          prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+        );
+      };
+
+      const filtered = useMemo(() => {
+        let result = papers;
+        if (activeTags.length > 0) {
+          result = result.filter((p) =>
+            activeTags.some((t) => p.tags.includes(t))
+          );
+        }
+        if (search.trim()) {
+          const q = search.toLowerCase();
+          result = result.filter(
+            (p) =>
+              p.title.toLowerCase().includes(q) ||
+              p.authors.toLowerCase().includes(q) ||
+              p.summary.toLowerCase().includes(q) ||
+              p.journal.toLowerCase().includes(q)
+          );
+        }
+        const [field, dir] = sort.split("-");
+        result = [...result].sort((a, b) => {
+          let cmp;
+          if (field === "year") cmp = a.year - b.year;
+          else if (field === "title") cmp = a.title.localeCompare(b.title);
+          else cmp = a.authors.localeCompare(b.authors);
+          return dir === "desc" ? -cmp : cmp;
+        });
+        return result;
+      }, [activeTags, search, sort]);
+
+      return (
+        <div style={{ minHeight: "100vh" }}>
+          {/* Header */}
+          <header style={{
+            padding: "52px 40px 36px",
+            borderBottom: "2px solid #1e3a5c",
+            background: "#fff",
+          }}>
+            <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+              <p style={{
+                fontFamily: "'Libre Franklin', sans-serif",
+                fontSize: 11,
+                letterSpacing: "3.5px",
+                textTransform: "uppercase",
+                color: "#1e3a5c",
+                marginBottom: 12,
+                fontWeight: 600,
+              }}>Literature Review Dashboard</p>
+              <h1 style={{
+                fontFamily: "'Source Serif 4', Georgia, serif",
+                fontSize: "clamp(30px, 4vw, 46px)",
+                fontWeight: 700,
+                lineHeight: 1.12,
+                margin: 0,
+                color: "#1a1a18",
+                maxWidth: 700,
+              }}>
+                LLMs and Civic Discourse
+              </h1>
+              <p style={{
+                fontFamily: "'Libre Franklin', sans-serif",
+                fontSize: 15,
+                color: "#6b6860",
+                marginTop: 14,
+                maxWidth: 620,
+                lineHeight: 1.65,
+                fontWeight: 300,
+              }}>
+                {papers.length} papers exploring bias, censorship, persuasion, and information quality in large language models.
+              </p>
+            </div>
+          </header>
+
+          {/* Controls */}
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "28px 40px 0" }}>
+            <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 20, alignItems: "center" }}>
+              <div style={{ position: "relative", flex: "1 1 280px", maxWidth: 420 }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9a9690" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }}>
+                  <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="Search titles, authors, content\u2026"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "11px 14px 11px 40px",
+                    borderRadius: 6,
+                    border: "1px solid #d8d5ce",
+                    background: "#fff",
+                    color: "#2c2a26",
+                    fontSize: 14,
+                    fontFamily: "'Libre Franklin', sans-serif",
+                    fontWeight: 400,
+                    outline: "none",
+                    boxSizing: "border-box",
+                    transition: "border-color 0.2s",
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = "#1e3a5c"}
+                  onBlur={(e) => e.target.style.borderColor = "#d8d5ce"}
+                />
+              </div>
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                style={{
+                  padding: "11px 32px 11px 14px",
+                  borderRadius: 6,
+                  border: "1px solid #d8d5ce",
+                  background: "#fff",
+                  color: "#4a4840",
+                  fontSize: 13,
+                  fontFamily: "'Libre Franklin', sans-serif",
+                  cursor: "pointer",
+                  outline: "none",
+                  WebkitAppearance: "none",
+                  MozAppearance: "none",
+                  appearance: "none",
+                  backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%239a9690' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E\")",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 12px center",
+                }}
+              >
+                {SORT_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Tag filters */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
+              {allTags.map((tag) => {
+                const active = activeTags.includes(tag);
+                const s = getTagStyle(tag);
+                return (
+                  <button
+                    key={tag}
+                    onClick={() => toggleTag(tag)}
+                    style={{
+                      padding: "5px 14px",
+                      borderRadius: 20,
+                      border: "1px solid " + (active ? s.border : "#d0cdc6"),
+                      background: active ? s.bg : "transparent",
+                      color: active ? s.text : "#8a8680",
+                      fontSize: 12,
+                      fontFamily: "'Libre Franklin', sans-serif",
+                      cursor: "pointer",
+                      transition: "all 0.2s",
+                      fontWeight: active ? 600 : 400,
+                    }}
+                  >
+                    {tag}
+                  </button>
+                );
+              })}
+              {activeTags.length > 0 && (
+                <button
+                  onClick={() => setActiveTags([])}
+                  style={{
+                    padding: "5px 14px",
+                    borderRadius: 20,
+                    border: "1px solid #d0cdc6",
+                    background: "transparent",
+                    color: "#1e3a5c",
+                    fontSize: 12,
+                    fontFamily: "'Libre Franklin', sans-serif",
+                    fontWeight: 500,
+                    cursor: "pointer",
+                  }}
+                >
+                  Clear all &times;
+                </button>
+              )}
+            </div>
+
+            <p style={{ fontSize: 12, color: "#9a9690", margin: "12px 0 0", fontFamily: "'Libre Franklin', sans-serif" }}>
+              Showing {filtered.length} of {papers.length} papers
+            </p>
+          </div>
+
+          {/* Cards */}
+          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "24px 40px 60px", display: "flex", flexDirection: "column", gap: 14 }}>
+            {filtered.length === 0 && (
+              <div style={{ textAlign: "center", padding: "80px 20px", color: "#9a9690", fontSize: 15, fontFamily: "'Libre Franklin', sans-serif" }}>
+                <p style={{ fontSize: 32, marginBottom: 12 }}>&empty;</p>
+                No papers match your current filters.
+              </div>
+            )}
+
+            {filtered.map((paper, idx) => {
+              const expanded = expandedId === paper.id;
+              return (
+                <div
+                  key={paper.id}
+                  onClick={() => setExpandedId(expanded ? null : paper.id)}
+                  style={{
+                    background: "#fff",
+                    border: "1px solid #e4e1da",
+                    borderRadius: 8,
+                    padding: "24px 28px",
+                    cursor: "pointer",
+                    transition: "all 0.25s ease",
+                    borderLeft: "3px solid " + getTagStyle(paper.tags[0]).border,
+                    animation: "fadeSlideIn 0.4s ease both",
+                    animationDelay: (idx * 40) + "ms",
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.07)";
+                    e.currentTarget.style.borderColor = "#ccc9c2";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)";
+                    e.currentTarget.style.borderColor = "#e4e1da";
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                    <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#9a9690", fontWeight: 500 }}>{paper.journal}</span>
+                    <span style={{ fontFamily: "'Source Serif 4', serif", fontSize: 17, fontWeight: 700, color: getTagStyle(paper.tags[0]).border, opacity: 0.55 }}>{paper.year}</span>
+                  </div>
+
+                  <h2 style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: "clamp(17px, 2vw, 20px)", fontWeight: 600, lineHeight: 1.35, margin: "0 0 8px", color: "#1a1a18" }}>{paper.title}</h2>
+
+                  <p style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 13, color: "#8a8680", margin: "0 0 14px", lineHeight: 1.4, fontWeight: 400 }}>{paper.authors}</p>
+
+                  <p style={{ fontFamily: "'Source Serif 4', Georgia, serif", fontSize: 14, color: expanded ? "#3a3830" : "#6b6860", lineHeight: 1.75, margin: "0 0 16px", maxHeight: expanded ? 300 : 48, overflow: "hidden", transition: "all 0.35s ease" }}>
+                    {paper.summary}
+                  </p>
+
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      {paper.tags.map((tag) => {
+                        const s = getTagStyle(tag);
+                        return (
+                          <span key={tag} style={{ padding: "3px 10px", borderRadius: 12, background: s.bg, color: s.text, fontSize: 11, fontWeight: 500, fontFamily: "'Libre Franklin', sans-serif", border: "1px solid " + s.border + "30" }}>{tag}</span>
+                        );
+                      })}
+                    </div>
+                    <span style={{ fontSize: 11, color: "#b0ada6", transition: "transform 0.3s", transform: expanded ? "rotate(180deg)" : "rotate(0)", display: "inline-block" }}>{"\u25BC"}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<Dashboard />);
+  </script>
+</body>
+</html>
