@@ -135,6 +135,7 @@
       },
       {
         id: 9,
+        pinned: true,
         authors: "Dai, Y., Lurie, E., Metaxa, D., & Friedler, S. A.",
         year: 2025,
         title: "Longitudinal Monitoring of LLM Content Moderation of Social Issues",
@@ -155,6 +156,7 @@
       },
       {
         id: 11,
+        pinned: true,
         authors: "Metaxa, D., & Friedler, S.",
         year: 2025,
         title: "Identity-related Speech Suppression in Generative AI Content Moderation",
@@ -346,6 +348,8 @@
         }
         const [field, dir] = sort.split("-");
         result = [...result].sort((a, b) => {
+          if (a.pinned && !b.pinned) return -1;
+          if (!a.pinned && b.pinned) return 1;
           let cmp;
           if (field === "year") cmp = a.year - b.year;
           else if (field === "title") cmp = a.title.localeCompare(b.title);
@@ -589,28 +593,33 @@
                   key={paper.id}
                   onClick={() => setExpandedId(expanded ? null : paper.id)}
                   style={{
-                    background: "#fff",
-                    border: "1px solid #e4e1da",
+                    background: paper.pinned ? "#fffdf5" : "#fff",
+                    border: "1px solid " + (paper.pinned ? "#e8d98a" : "#e4e1da"),
                     borderRadius: 8,
                     padding: "24px 28px",
                     cursor: "pointer",
                     transition: "all 0.25s ease",
-                    borderLeft: "3px solid " + getTagStyle(paper.tags[0]).border,
+                    borderLeft: "3px solid " + (paper.pinned ? "#c9a800" : getTagStyle(paper.tags[0]).border),
                     animation: "fadeSlideIn 0.4s ease both",
                     animationDelay: (idx * 40) + "ms",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                    boxShadow: paper.pinned ? "0 2px 8px rgba(180,150,0,0.10)" : "0 1px 3px rgba(0,0,0,0.04)",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.07)";
-                    e.currentTarget.style.borderColor = "#ccc9c2";
+                    e.currentTarget.style.boxShadow = paper.pinned ? "0 4px 14px rgba(180,150,0,0.18)" : "0 2px 8px rgba(0,0,0,0.07)";
+                    e.currentTarget.style.borderColor = paper.pinned ? "#d4b800" : "#ccc9c2";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.04)";
-                    e.currentTarget.style.borderColor = "#e4e1da";
+                    e.currentTarget.style.boxShadow = paper.pinned ? "0 2px 8px rgba(180,150,0,0.10)" : "0 1px 3px rgba(0,0,0,0.04)";
+                    e.currentTarget.style.borderColor = paper.pinned ? "#e8d98a" : "#e4e1da";
                   }}
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#9a9690", fontWeight: 500 }}>{paper.journal}</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#9a9690", fontWeight: 500 }}>{paper.journal}</span>
+                      {paper.pinned && (
+                        <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 10, letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 700, color: "#8a6a00", background: "#fef3c0", border: "1px solid #e8d98a", borderRadius: 4, padding: "2px 7px" }}>Penn Research</span>
+                      )}
+                    </div>
                     <span style={{ fontFamily: "'Source Serif 4', serif", fontSize: 17, fontWeight: 700, color: getTagStyle(paper.tags[0]).border, opacity: 0.55 }}>{paper.year}</span>
                   </div>
 
