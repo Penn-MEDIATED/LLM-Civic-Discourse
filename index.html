@@ -244,7 +244,6 @@
       { value: "year-asc", label: "Year (oldest)" },
       { value: "title-asc", label: "Title (A\u2013Z)" },
       { value: "title-desc", label: "Title (Z\u2013A)" },
-      { value: "authors-asc", label: "Author (A\u2013Z)" },
     ];
 
     const TAG_COLORS = {
@@ -358,22 +357,76 @@
                 lineHeight: 1.5,
                 fontWeight: 400,
               }}>
-                A Project of the{" "}
+                A project of the{" "}
                 <a href="https://infodem.upenn.edu/" target="_blank" rel="noopener noreferrer" style={{ color: "#1e3a5c", textDecoration: "underline", textUnderlineOffset: 3 }}>
                   Penn Center on Media, Technology, and Democracy
                 </a>
               </p>
-              <p style={{
-                fontFamily: "'Libre Franklin', sans-serif",
-                fontSize: 15,
-                color: "#6b6860",
-                marginTop: 14,
-                maxWidth: 620,
-                lineHeight: 1.65,
-                fontWeight: 300,
-              }}>
-                Containing {papers.length} papers, this dashboard highlights recent research on how large language models (LLMs) shape civic discourse. The collection includes empirical studies examining political bias in LLM outputs, longitudinal audits tracking how LLMs handle political content over time, and experimental research testing how LLMs affect learning outcomes and political beliefs. It also features papers investigating trends in automated content moderation, including refusal patterns and potential speech suppression for different identity groups. Several papers explore whether and how LLMs might support democratic processes—from improving online political conversations to assisting with democratic deliberation. Together, these papers serve as a helpful primer for understanding current research on how LLMs are shaping political communication and civic participation..
-              </p>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 32, marginTop: 14, flexWrap: "wrap" }}>
+                <p style={{
+                  fontFamily: "'Libre Franklin', sans-serif",
+                  fontSize: 15,
+                  color: "#6b6860",
+                  margin: 0,
+                  maxWidth: 620,
+                  lineHeight: 1.65,
+                  fontWeight: 300,
+                  flex: "1 1 340px",
+                }}>
+                  Containing {papers.length} papers, this dashboard highlights recent research on how large language models (LLMs) shape civic discourse. The collection includes empirical studies examining political bias in LLM outputs, longitudinal audits tracking how LLMs handle political content over time, and experimental research testing how LLMs affect learning outcomes and political beliefs. It also features papers investigating trends in automated content moderation, including refusal patterns and potential speech suppression for different identity groups. Several papers explore whether and how LLMs might support democratic processes—from improving online political conversations to assisting with democratic deliberation. Together, these papers serve as a helpful primer for understanding current research on how LLMs are shaping political communication and civic participation.
+                </p>
+                <div style={{ flex: "0 0 280px", display: "flex", flexDirection: "column", gap: 12 }}>
+                  <h3 style={{
+                    fontFamily: "'Source Serif 4', Georgia, serif",
+                    fontSize: 17,
+                    fontWeight: 600,
+                    color: "#1a1a18",
+                    margin: 0,
+                    lineHeight: 1.3,
+                  }}>
+                    Convening on LLMs and Civic Discourse
+                  </h3>
+                  <p style={{
+                    fontFamily: "'Libre Franklin', sans-serif",
+                    fontSize: 13,
+                    color: "#6b6860",
+                    margin: 0,
+                    lineHeight: 1.65,
+                    fontWeight: 300,
+                  }}>
+                    On March 4th, Penn MEDIATED hosted an online convening of prominent academic researchers and civil society organizations to share results from, and approaches to, monitoring and evaluating LLM civic discourse—how LLMs discuss political topics, refer to politicians, and relate election information. You can see the topic primer for that convening below.
+                  </p>
+                  <a
+                    href="LLM Civic Discourse Convening - Topic Primer.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 10,
+                      alignSelf: "flex-start",
+                      padding: "12px 18px",
+                      background: "#1e3a5c",
+                      color: "#fff",
+                      borderRadius: 8,
+                      textDecoration: "none",
+                      fontFamily: "'Libre Franklin', sans-serif",
+                      fontSize: 13,
+                      fontWeight: 500,
+                      lineHeight: 1.4,
+                      boxShadow: "0 2px 8px rgba(30,58,92,0.18)",
+                      transition: "background 0.2s, box-shadow 0.2s",
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.background = "#16304e"; e.currentTarget.style.boxShadow = "0 4px 14px rgba(30,58,92,0.28)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "#1e3a5c"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(30,58,92,0.18)"; }}
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    LLM Civic Discourse – Topic Primer
+                  </a>
+                </div>
+              </div>
             </div>
           </header>
 
