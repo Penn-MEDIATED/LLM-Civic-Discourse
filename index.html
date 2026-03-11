@@ -24,6 +24,22 @@
     ::placeholder { color: #b0ada6; }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 3px; }
+
+    /* Responsive layout */
+    .dashboard-container { max-width: 1600px; margin: 0 auto; padding-left: 40px; padding-right: 40px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+
+    @media (max-width: 768px) {
+      .dashboard-container { padding-left: 16px; padding-right: 16px; }
+      .header-inner { padding: 32px 16px 24px !important; }
+      .header-flex { flex-direction: column !important; }
+      .convening-block { flex: 1 1 100% !important; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .controls-row { flex-direction: column; }
+    }
+    @media (min-width: 769px) and (max-width: 1100px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
 </head>
 <body>
@@ -343,11 +359,10 @@
         <div style={{ minHeight: "100vh" }}>
           {/* Header */}
           <header style={{
-            padding: "52px 40px 36px",
             borderBottom: "2px solid #1e3a5c",
             background: "#fff",
           }}>
-            <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <div className="dashboard-container header-inner" style={{ maxWidth: 1600, margin: "0 auto", paddingTop: 52, paddingBottom: 36 }}>
               <p style={{
                 fontFamily: "'Libre Franklin', sans-serif",
                 fontSize: 11,
@@ -382,20 +397,20 @@
                   Penn Center on Media, Technology, and Democracy
                 </a>
               </p>
-              <div style={{ display: "flex", alignItems: "flex-start", gap: 32, marginTop: 14, flexWrap: "wrap" }}>
+              <div className="header-flex" style={{ display: "flex", alignItems: "flex-start", gap: 32, marginTop: 14, flexWrap: "wrap" }}>
                 <p style={{
                   fontFamily: "'Libre Franklin', sans-serif",
                   fontSize: 15,
                   color: "#6b6860",
                   margin: 0,
-                  maxWidth: 620,
+                  maxWidth: 800,
                   lineHeight: 1.65,
                   fontWeight: 300,
                   flex: "1 1 340px",
                 }}>
                   Containing {papers.length} papers, this dashboard highlights recent research on how large language models (LLMs) shape civic discourse. The collection includes empirical studies examining political bias in LLM outputs, longitudinal audits tracking how LLMs handle political content over time, and experimental research testing how LLMs affect learning outcomes and political beliefs. It also features papers investigating trends in automated content moderation, including refusal patterns and potential speech suppression for different identity groups. Several papers explore whether and how LLMs might support democratic processes—from improving online political conversations to assisting with democratic deliberation. Together, these papers serve as a helpful primer for understanding current research on how LLMs are shaping political communication and civic participation.
                 </p>
-                <div style={{ flex: "0 0 360px", display: "flex", flexDirection: "column", gap: 12 }}>
+                <div className="convening-block" style={{ flex: "0 0 360px", display: "flex", flexDirection: "column", gap: 12 }}>
                   <h3 style={{
                     fontFamily: "'Source Serif 4', Georgia, serif",
                     fontSize: 17,
@@ -451,7 +466,7 @@
           </header>
 
           {/* Controls */}
-          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "28px 40px 0" }}>
+          <div className="dashboard-container" style={{ maxWidth: 1600, margin: "0 auto", paddingTop: 28, paddingBottom: 0 }}>
             <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 20, alignItems: "center" }}>
               <div style={{ position: "relative", flex: "1 1 280px", maxWidth: 420 }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9a9690" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)" }}>
@@ -559,7 +574,7 @@
           </div>
 
           {/* Cards */}
-          <div style={{ maxWidth: 1200, margin: "0 auto", padding: "24px 40px 60px", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 14 }}>
+          <div className="dashboard-container cards-grid" style={{ maxWidth: 1600, margin: "0 auto", paddingTop: 24, paddingBottom: 60 }}>
             {filtered.length === 0 && (
               <div style={{ textAlign: "center", padding: "80px 20px", color: "#9a9690", fontSize: 15, fontFamily: "'Libre Franklin', sans-serif", gridColumn: "1 / -1" }}>
                 <p style={{ fontSize: 32, marginBottom: 12 }}>&empty;</p>
