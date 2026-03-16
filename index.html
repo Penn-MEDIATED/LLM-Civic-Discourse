@@ -61,7 +61,7 @@
         url: "https://www.nature.com/articles/s44387-025-00048-0",
         journal: "npj Artificial Intelligence",
         summary: "This paper shows how LLM behavior is shaped by its design and training data by prompting a \u201Cdiverse panel of 19 popular LLMs to describe 3,991 prominent persons with political relevance, and then judge how positively they portray each person.\u201D The results indicate that design choices by LLM developers impact its political responses, and they find clear differences stemming from both the language used and the geographic origin.",
-        tags: ["Bias", "Ideology", "Cross-model comparison"],
+        tags: ["Political Bias & Ideology", "Benchmarks & Evaluation"],
       },
       {
         id: 2,
@@ -71,7 +71,7 @@
         url: "https://link.springer.com/chapter/10.1007/978-3-032-05962-8_16",
         journal: "Joint European Conference on ML & KDD",
         summary: "This book chapter empirically investigates whether LLMs refuse \u201Cto answer or omit information when prompted on political topics.\u201D The authors find that while patterns in LLM censorship vary widely, censorship is more common for prominent individuals that are domestic to the LLM developer.",
-        tags: ["Censorship", "Content moderation", "Cross-model comparison"],
+        tags: ["Censorship & Content Moderation", "Benchmarks & Evaluation"],
       },
       {
         id: 3,
@@ -81,7 +81,7 @@
         url: "https://academic.oup.com/pnasnexus/article/4/10/pgaf316/8303888",
         journal: "PNAS nexus",
         summary: "This paper compares LLM summaries and traditional search on learning outcomes and finds that LLMs reduce the effort it takes to find information. However, it also demonstrated that users of LLM summaries developed a shallower understanding of the selected topics (specifically, how to plant a vegetable garden and, secondly, how to have a healthier lifestyle), and found that advice written based on LLM summaries was less useful to others than advice based on search.",
-        tags: ["Information retrieval", "User behavior"],
+        tags: ["User Behavior & Information Effects"],
       },
       {
         id: 4,
@@ -91,7 +91,7 @@
         url: "https://arxiv.org/abs/2511.18749",
         journal: "Preprint",
         summary: "The authors assessed how LLMs perform at fact-checking, based on their response to 6,000 claims vetted by Politifact. They find that standard models perform poorly on fact-checking tasks. Models with web search and advanced reasoning capabilities perform slightly better, but the most effective way to improve LLM-based fact checking is to \u201Cgive models access to curated high-quality context.\u201D",
-        tags: ["Fact-checking", "Misinformation", "Information retrieval"],
+        tags: ["Misinformation & Fact-Checking"],
       },
       {
         id: 5,
@@ -101,7 +101,7 @@
         url: "https://link.springer.com/article/10.1007/s42001-025-00376-w",
         journal: "Journal of Computational Social Science",
         summary: "This paper assesses the prevalence of political bias among open-source LLMs in the European Union. Larger models like Llama3 were more closely aligned to left-leaning political parties and smaller models remained neutral.",
-        tags: ["Bias", "Ideology"],
+        tags: ["Political Bias & Ideology"],
       },
       {
         id: 6,
@@ -111,7 +111,7 @@
         url: "https://www.science.org/doi/10.1126/science.aea3884",
         journal: "Science",
         summary: "This paper evaluated 19 LLMs on their persuasiveness about political topics. Findings suggest that post-training and prompting methods increased the persuasive power of LLMs more than personalization or increasing model scale. Moreover, higher persuasiveness in LLMs was associated with lower factual accuracy.",
-        tags: ["Persuasion", "Misinformation", "Cross-model comparison"],
+        tags: ["Persuasion & Political Influence", "Benchmarks & Evaluation"],
       },
       {
         id: 7,
@@ -121,7 +121,7 @@
         url: "https://academic.oup.com/pnasnexus/article/5/2/pgag013/8487339",
         journal: "PNAS nexus",
         summary: "This paper examined government censorship as a source of LLM bias in China. The authors compared LLMs developed in China to those developed outside China across 145 political questions. Models originating in China had more inaccurate responses and higher refusal rates. For all models, refusal rates were higher for Chinese language prompts. However, the research found that \u201Clanguage differences are less pronounced than disparities between China-originating and non-China-originating models.\u201D",
-        tags: ["Censorship", "Bias"],
+        tags: ["Censorship & Content Moderation", "Political Bias & Ideology"],
       },
       {
         id: 8,
@@ -131,7 +131,7 @@
         url: "https://assets-eu.researchsquare.com/files/rs-8663921/v1_covered_e27a55ae-eb7f-4ca2-8157-a1932183c8e8.pdf?c=1769592533",
         journal: "Preprint",
         summary: "In this paper, researchers conducted two experiments to assess whether conversations with an LLM can help inoculate against election denialism claims. Findings suggest that both experimental interventions reduced confidence in conspiratorial claims and participants who had strongest baseline beliefs about election denialism \u201Cexperienced largest decreases in denial beliefs.\u201D",
-        tags: ["Persuasion", "Misinformation", "User behavior"],
+        tags: ["Persuasion & Political Influence", "Misinformation & Fact-Checking"],
       },
       {
         id: 9,
@@ -142,7 +142,7 @@
         url: "https://arxiv.org/pdf/2510.01255",
         journal: "Preprint",
         summary: "This project introduces a longitudinal auditing system to publicly measure and track LLM content refusals over time. The researchers audited OpenAI\u2019s models and moderation endpoint, as well as DeepSeek using a dataset of over 400 social issues, finding that policy changes by companies, even when not disclosed publicly, can be detected via longitudinal monitoring.",
-        tags: ["Content moderation", "Censorship", "Auditing"],
+        tags: ["Censorship & Content Moderation", "Benchmarks & Evaluation"],
       },
       {
         id: 10,
@@ -152,7 +152,7 @@
         url: "https://arxiv.org/pdf/2509.18446",
         journal: "Preprint",
         summary: "Researchers examined how 12 LLMs responded to over 12,000 different election-related queries over a five-month period leading up to the 2024 U.S. presidential election. They released the resulting dataset of the LLM responses to enable future research.",
-        tags: ["Cross-model comparison", "Auditing", "Dataset"],
+        tags: ["Censorship & Content Moderation", "Benchmarks & Evaluation"],
       },
       {
         id: 11,
@@ -163,7 +163,7 @@
         url: "https://dl.acm.org/doi/10.1145/3757887.3763010",
         journal: "ACM EAAMO 2025",
         summary: "This paper provides a benchmark for measurement of speech suppression for nine identity groups. Across one traditional and four generative AI-focused automated content moderation services tested, they find that identity-related speech is more likely to be incorrectly suppressed than other speech.",
-        tags: ["Content moderation", "Censorship", "Bias"],
+        tags: ["Censorship & Content Moderation"],
       },
       {
         id: 12,
@@ -173,7 +173,7 @@
         url: "https://link.springer.com/article/10.1007/s11023-026-09767-y",
         journal: "Minds and Machines",
         summary: "This paper explores whether LLMs can help improve democratic deliberation and decision making. Findings suggest that while LLMs may not be a good replacement for decision making, it can help strengthen the \u201Cinformal public sphere,\u201D by helping improve information access and allowing citizens to \u201Chold leaders to account.\u201D",
-        tags: ["Democracy"],
+        tags: ["Democracy & Public Deliberation"],
       },
       {
         id: 13,
@@ -183,7 +183,7 @@
         url: "https://arxiv.org/html/2409.05283",
         journal: "EMNLP 2024",
         summary: "Findings from this paper suggests that optimizing reward models for truthfulness tends to result in a left-leaning political bias. The authors argue this is important, because if the goal of truthfulness informs model training and leads to a left-leaning bias, it would be difficult to align models to be both truthful and politically unbiased.",
-        tags: ["Bias", "Ideology", "Fact-checking"],
+        tags: ["Political Bias & Ideology", "Misinformation & Fact-Checking"],
       },
       {
         id: 14,
@@ -193,7 +193,7 @@
         url: "https://arxiv.org/abs/2506.12077",
         journal: "Preprint",
         summary: "This research examines how LLMs moderate conversations about climate change via its communication style. Results reveal two ways in which LLMs moderate discourse: LLMs are more emotionally neutral than human users and maintain lower emotional intensity. These findings suggest that LLMs possess inherent moderating capacities that could improve the quality of public discourse on controversial topics.",
-        tags: ["Discourse", "Persuasion", "User behavior"],
+        tags: ["Democracy & Public Deliberation", "User Behavior & Information Effects"],
       },
       {
         id: 15,
@@ -203,7 +203,7 @@
         url: "https://arxiv.org/abs/2601.20238",
         journal: "Preprint",
         summary: "This paper explores how the release of ChatGPT altered ideological and emotional patterns on Reddit\u2019s politics subreddit. Results suggest that ChatGPT intensified ideological polarization wherein liberals became more liberal, and conservatives more conservative. This was not due to the generation of more persuasive or ideologically extreme original content using ChatGPT. Instead, it stems from the tendency of ChatGPT-generated comments to \u201Cecho and reinforce the viewpoint of original posts, a pattern consistent with algorithmic sycophancy.\u201D",
-        tags: ["Ideology", "User behavior"],
+        tags: ["Political Bias & Ideology", "User Behavior & Information Effects"],
       },
       {
         id: 16,
@@ -213,7 +213,7 @@
         url: "https://ojs.aaai.org/index.php/AIES/article/view/31710",
         journal: "AAAI/ACM Conference on AI, Ethics, and Society",
         summary: "This paper introduces the \u201CCIVICS: Culturally-Informed & Values-Inclusive Corpus for Societal impacts\u201D dataset, designed to evaluate the social and cultural variation of Large Language Models (LLMs) towards socially sensitive topics across multiple languages and cultures.",
-        tags: ["Dataset", "Bias", "Cross-model comparison"],
+        tags: ["Benchmarks & Evaluation", "Political Bias & Ideology"],
       },
       {
         id: 17,
@@ -223,7 +223,7 @@
         url: "https://arxiv.org/abs/2601.12164",
         journal: "Preprint",
         summary: "This paper finds that varying the language (Russian or Ukrainian) used to prompt LLMs led to variation in rhetorical positioning, ideological orientation, and interpretive conclusions produced by the models.",
-        tags: ["Bias", "Ideology"],
+        tags: ["Political Bias & Ideology"],
       },
       {
         id: 18,
@@ -233,7 +233,7 @@
         url: "https://link.springer.com/article/10.1007/s11948-025-00529-0",
         journal: "Science and Engineering Ethics",
         summary: "This paper provides a philosophical perspective on the potential epistemic and democratic risks of widespread use of LLMs.",
-        tags: ["Democracy", "Misinformation"],
+        tags: ["Democracy & Public Deliberation", "Misinformation & Fact-Checking"],
       },
       {
         id: 19,
@@ -243,7 +243,7 @@
         url: "https://arxiv.org/abs/2406.00018",
         journal: "Preprint",
         summary: "Researchers compared four popular LLMs on how they \u201Cposition newspapers\u201D and whether LLM responses are similar across models. They find that articles in newspapers are positioned very differently by different LLMs, hinting at \u201Cinconsistent training or excessive randomness in the algorithms.\u201D",
-        tags: ["Bias", "Cross-model comparison", "Ideology"],
+        tags: ["Political Bias & Ideology", "Benchmarks & Evaluation"],
       },
       {
         id: 20,
@@ -253,7 +253,7 @@
         url: "https://www.pnas.org/doi/abs/10.1073/pnas.2311627120",
         journal: "Proceedings of the National Academy of Sciences",
         summary: "The authors developed an AI chat assistant that makes real-time, evidence-based suggestions for messages in divisive online political conversations. In a randomized controlled trial, they show that when one participant in a conversation had access to this assistant, it increased their partner\u2019s reported quality of conversation. Further, it increased both participants\u2019 willingness to grant political opponents space to express and to advocate their views in the public sphere.",
-        tags: ["Democracy", "Discourse", "Persuasion"],
+        tags: ["Democracy & Public Deliberation", "Persuasion & Political Influence"],
       },
       {
         id: 21,
@@ -263,7 +263,7 @@
         url: "https://arxiv.org/abs/2511.04706",
         journal: "Preprint",
         summary: "This study explores how inferred political views (using personas) impact the responses of ChatGPT globally and finds that ChatGPT\u2019s reasoning and language choices are shaped by how it infers political views. Moreover, the democratic persona was closest to the neutral one, \u201Csupporting the observation that ChatGPT\u2019s outputs lean left.\u201D",
-        tags: ["Bias", "Ideology", "User behavior"],
+        tags: ["Political Bias & Ideology", "User Behavior & Information Effects"],
       },
       {
         id: 22,
@@ -273,7 +273,7 @@
         url: "https://aclanthology.org/2025.acl-long.328/",
         journal: "ACL 2025",
         summary: "This paper presents two experiments investigating the effects of partisan bias in LLMs on political opinions and decision-making. Participants were found to mirror the biases displayed by LLMs and these findings persisted even \u201Cwhen the model bias and personal political partisanship of the participant were opposite.\u201D",
-        tags: ["Bias", "Persuasion", "User behavior"],
+        tags: ["Persuasion & Political Influence", "Political Bias & Ideology"],
       },
       {
         id: 25,
@@ -283,7 +283,7 @@
         url: "https://link.springer.com/article/10.1007/s11127-023-01097-2",
         journal: "Public Choice",
         summary: "This paper measures ChatGPT\u2019s political orientation on two scales of social politics (authoritarian vs. libertarian) and economic policy (left vs. right), using a survey instrument. The analysis finds ChatGPT\u2019s responses more often align with responses expected from Democrats.",
-        tags: ["Bias", "Political orientation", "ChatGPT"],
+        tags: ["Political Bias & Ideology"],
       },
       {
         id: 26,
@@ -293,7 +293,7 @@
         url: "https://www.pnas.org/doi/10.1073/pnas.2403116121",
         journal: "PNAS",
         summary: "Political messages generated from GPT-4 were persuasive on political issues including renewable energy, NATO support, and sanctions on China. However, microtargeted versions, using self-reported demographic and political information, were not more so persuasive.",
-        tags: ["Persuasion", "Microtargeting", "Political communication"],
+        tags: ["Persuasion & Political Influence"],
       },
       {
         id: 27,
@@ -303,7 +303,7 @@
         url: "https://www.nature.com/articles/s41467-025-61345-5",
         journal: "Nature Communications",
         summary: "LLM-generated messages were similarly effective in influencing policy attitudes on a set of highly polarized issues as messages from everyday people. The paper argues that LLMs\u2019 persuasiveness comes from using \u201Cfacts, evidence, logical reasoning, and a dispassionate voice,\u201D distinct from the human-written messages.",
-        tags: ["Persuasion", "Political communication", "User behavior"],
+        tags: ["Persuasion & Political Influence"],
       },
       {
         id: 28,
@@ -313,7 +313,7 @@
         url: "https://aclanthology.org/2023.emnlp-main.395/",
         journal: "EMNLP 2023",
         summary: "This paper examines GPT-4\u2019s ability to detect misinformation, finding it outperforms prior approaches in different languages and subject matters. It also found several potential avenues for improvement, such as web retrieval, explainability, and uncertainty quantification.",
-        tags: ["Misinformation", "Content moderation", "GPT-4"],
+        tags: ["Misinformation & Fact-Checking"],
       },
       {
         id: 24,
@@ -323,7 +323,7 @@
         url: "https://dl.acm.org/doi/10.5555/3618408.3619652",
         journal: "ICML 2023",
         summary: "This paper developed a quantitative framework to investigate the opinions of LLMs using public opinion survey of social and political questions. The analysis discovers significant variation between LLMs and the general U.S. population\u2019s beliefs, and further results in a dataset for evaluating alignment of LLM opinions.",
-        tags: ["Bias", "Public opinion", "Alignment"],
+        tags: ["Political Bias & Ideology", "Benchmarks & Evaluation"],
       },
       {
         id: 23,
@@ -333,7 +333,7 @@
         url: "https://arxiv.org/abs/2509.05219",
         journal: "Preprint",
         summary: "This paper examines the use of conversational AI for political information-seeking among UK voters, combining a national survey (N = 2,499) conducted during the 2024 UK election along with a series of randomized controlled trials. Findings suggest that AI conversations improved political knowledge and reduced belief in misinformation at rates comparable to traditional internet search.",
-        tags: ["Information retrieval", "Misinformation", "User behavior"],
+        tags: ["User Behavior & Information Effects", "Misinformation & Fact-Checking"],
       },
     ];
 
