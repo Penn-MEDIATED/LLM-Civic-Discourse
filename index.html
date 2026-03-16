@@ -347,20 +347,13 @@
     ];
 
     const TAG_COLORS = {
-      "Bias": { bg: "#fef3ee", border: "#c2673a", text: "#9e4f26" },
-      "Ideology": { bg: "#fef8ee", border: "#b8942e", text: "#8a6e1c" },
-      "Cross-model comparison": { bg: "#eef8f4", border: "#2e8a62", text: "#1e6b4a" },
-      "Censorship": { bg: "#f6eef8", border: "#8a3e8a", text: "#6e2e6e" },
-      "Content moderation": { bg: "#f0eef8", border: "#5e4a9e", text: "#4a3880" },
-      "Information retrieval": { bg: "#eef7f7", border: "#3a9a9a", text: "#2a7a7a" },
-      "User behavior": { bg: "#f2f6ee", border: "#5e8a2e", text: "#4a6e1e" },
-      "Fact-checking": { bg: "#fdf0f2", border: "#b83a52", text: "#922a40" },
-      "Misinformation": { bg: "#fdf0f0", border: "#b83a3a", text: "#922a2a" },
-      "Persuasion": { bg: "#fdf8ee", border: "#aa8a2e", text: "#886e1c" },
-      "Auditing": { bg: "#f0f6ee", border: "#3e8a3e", text: "#2e6e2e" },
-      "Democracy": { bg: "#eef2f8", border: "#3a68aa", text: "#2a5088" },
-      "Dataset": { bg: "#f5f5ee", border: "#7a7a2e", text: "#5e5e1c" },
-      "Discourse": { bg: "#f0f6ee", border: "#4a8a2e", text: "#3a6e1e" },
+      "Political Bias & Ideology":        { bg: "#f0eef8", border: "#5a3ea0", text: "#4a2e88" },
+      "Censorship & Content Moderation":  { bg: "#fdf0ec", border: "#c0522a", text: "#9a3e1e" },
+      "Persuasion & Political Influence": { bg: "#fdf7e8", border: "#b08020", text: "#8a6010" },
+      "Misinformation & Fact-Checking":   { bg: "#fdf0f0", border: "#b83a3a", text: "#922a2a" },
+      "Democracy & Public Deliberation":  { bg: "#eef2f8", border: "#3a68aa", text: "#2a5088" },
+      "User Behavior & Information Effects": { bg: "#eef7f5", border: "#2a8a7a", text: "#1e6e62" },
+      "Benchmarks & Evaluation":          { bg: "#f2f5ee", border: "#4a7a2e", text: "#3a6020" },
     };
 
     function getTagStyle(tag) {
@@ -577,7 +570,7 @@
             </div>
 
             {/* Tag filters */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(190px, 1fr))", gap: 8, marginBottom: 8 }}>
               {allTags.map((tag) => {
                 const active = activeTags.includes(tag);
                 const s = getTagStyle(tag);
@@ -586,23 +579,26 @@
                     key={tag}
                     onClick={() => toggleTag(tag)}
                     style={{
-                      padding: "5px 14px",
+                      padding: "7px 14px",
                       borderRadius: 20,
                       border: "1px solid " + (active ? s.border : "#d0cdc6"),
                       background: active ? s.bg : "transparent",
                       color: active ? s.text : "#8a8680",
-                      fontSize: 12,
+                      fontSize: 12.5,
                       fontFamily: "'Libre Franklin', sans-serif",
                       cursor: "pointer",
                       transition: "all 0.2s",
                       fontWeight: active ? 600 : 400,
+                      textAlign: "center",
                     }}
                   >
                     {tag}
                   </button>
                 );
               })}
-              {activeTags.length > 0 && (
+            </div>
+            {activeTags.length > 0 && (
+              <div style={{ marginBottom: 8 }}>
                 <button
                   onClick={() => setActiveTags([])}
                   style={{
@@ -619,8 +615,8 @@
                 >
                   Clear all &times;
                 </button>
-              )}
-            </div>
+              </div>
+            )}
 
             <p style={{ fontSize: 12, color: "#9a9690", margin: "12px 0 0", fontFamily: "'Libre Franklin', sans-serif" }}>
               Showing {filtered.length} of {papers.length} papers
