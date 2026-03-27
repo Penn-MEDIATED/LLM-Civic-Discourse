@@ -54,6 +54,17 @@
 
     const papers = [
       {
+        id: 29,
+        new: true,
+        authors: "Chen, Z., Kalla, J., & Le, Q.",
+        year: 2026,
+        title: "Benchmarking Political Persuasion Risks Across Frontier Large Language Models",
+        url: "https://arxiv.org/pdf/2603.09884",
+        journal: "Preprint",
+        summary: "Using two survey experiments, the authors examine whether seven state-of-the-art frontier AI models exhibit political persuasion capabilities. Results suggest that all the models outperformed standard campaign advertisements. Claude was the most persuasive while Grok was the least. Unlike previous research that found information-based prompts increase persuasion, this paper suggests that it is model dependent: it increases for Claude and Grok but reduces for GPT. The authors also provide a framework to assess persuasive strategies employed by LLMs and benchmark the persuasive risks of frontier models, to help facilitate cross-model risk assessments.",
+        tags: ["Persuasion & Political Influence", "Benchmarks & Evaluation"],
+      },
+      {
         id: 1,
         authors: "Buyl, M., Rogiers, A., Noels, S., Bied, G., Dominguez-Catena, I., Heiter, E., ... & De Bie, T.",
         year: 2026,
@@ -391,6 +402,8 @@
         }
         const [field, dir] = sort.split("-");
         result = [...result].sort((a, b) => {
+          if (a.new && !b.new) return -1;
+          if (!a.new && b.new) return 1;
           if (a.pinned && !b.pinned) return -1;
           if (!a.pinned && b.pinned) return 1;
           let cmp;
