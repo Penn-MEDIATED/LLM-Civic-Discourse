@@ -402,10 +402,10 @@
         }
         const [field, dir] = sort.split("-");
         result = [...result].sort((a, b) => {
-          if (a.new && !b.new) return -1;
-          if (!a.new && b.new) return 1;
           if (a.pinned && !b.pinned) return -1;
           if (!a.pinned && b.pinned) return 1;
+          if (a.new && !b.new) return -1;
+          if (!a.new && b.new) return 1;
           let cmp;
           if (field === "year") cmp = a.year - b.year;
           else if (field === "title") cmp = a.title.localeCompare(b.title);
