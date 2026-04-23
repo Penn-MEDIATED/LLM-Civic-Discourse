@@ -20,6 +20,7 @@
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    .paper-card { animation: fadeSlideIn 0.3s ease forwards; }
     select option { background: #fff; color: #4a4840; }
     ::placeholder { color: #b0ada6; }
     ::-webkit-scrollbar { width: 6px; }
@@ -1181,6 +1182,7 @@
               return (
                 <div
                   key={paper.id}
+                  className="paper-card"
                   onClick={() => setExpandedId(expanded ? null : paper.id)}
                   style={{
                     background: isPenn ? "#fffdf5" : "#fff",
@@ -1190,7 +1192,6 @@
                     cursor: "pointer",
                     transition: "all 0.25s ease",
                     borderLeft: "3px solid " + (isPenn ? "#c9a800" : getTagStyle(paper.tags[0]).border),
-                    animation: "fadeSlideIn 0.3s ease forwards",
                     boxShadow: isPenn ? "0 2px 8px rgba(180,150,0,0.10)" : "0 1px 3px rgba(0,0,0,0.04)",
                   }}
                   onMouseEnter={(e) => {
