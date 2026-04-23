@@ -877,8 +877,6 @@
         result = [...result].sort((a, b) => {
           if (a.pinned && !b.pinned) return -1;
           if (!a.pinned && b.pinned) return 1;
-          if (a.new && !b.new) return -1;
-          if (!a.new && b.new) return 1;
           let cmp;
           if (field === "year") cmp = a.year - b.year;
           else if (field === "title") cmp = a.title.localeCompare(b.title);
@@ -1186,8 +1184,7 @@
                     cursor: "pointer",
                     transition: "all 0.25s ease",
                     borderLeft: "3px solid " + (paper.pinned ? "#c9a800" : getTagStyle(paper.tags[0]).border),
-                    animation: "fadeSlideIn 0.4s ease both",
-                    animationDelay: (idx * 40) + "ms",
+                    animation: "fadeSlideIn 0.3s ease forwards",
                     boxShadow: paper.pinned ? "0 2px 8px rgba(180,150,0,0.10)" : "0 1px 3px rgba(0,0,0,0.04)",
                   }}
                   onMouseEnter={(e) => {
