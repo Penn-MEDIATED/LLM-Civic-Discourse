@@ -275,6 +275,17 @@
         tags: ["Content Moderation"],
       },
       {
+        id: 56,
+        new: true,
+        authors: "Suzgun, M., Gur, T., Bianchi, F., Ho, D. E., Icard, T., Jurafsky, D., & Zou, J.",
+        year: 2025,
+        title: "Language models cannot reliably distinguish belief from knowledge and fact",
+        url: "https://www.nature.com/articles/s42256-025-01113-8?fromPaywallRec=false",
+        journal: "Nature Machine Intelligence",
+        summary: "This paper evaluates 24 LLMs on their ability to distinguish fact from fiction, a critical prerequisite for fact-checking in high-stakes domains like law, medicine, and journalism. Using a new benchmark of 13,000 questions across 13 epistemic tasks, the study reveals significant limitations, most notably that all models systematically fail to handle first-person false beliefs (e.g., \"I believe nicotine is not addictive\"), with even top models like GPT-4o and DeepSeek R1 showing dramatic accuracy drops. However, the study also finds that models handle third-person false beliefs far more accurately than first-person ones. The authors suggest that LLM's competence in reasoning tasks may reflect superficial pattern matching rather than genuine epistemic understanding.",
+        tags: ["Misinformation & Fact-Checking"],
+      },
+      {
         id: 35,
         new: true,
         authors: "Westwood, S. J., Grimmer, J., & Hall, A. B.",
@@ -656,10 +667,10 @@
     ];
 
     const TAG_COLORS = {
-      "Political Bias & Ideology":        { bg: "#f0eef8", border: "#5a3ea0", text: "#4a2e88" },
-      "Content Moderation":  { bg: "#fdf0ec", border: "#c0522a", text: "#9a3e1e" },
-      "Persuasion & Political Influence": { bg: "#fdf7e8", border: "#b08020", text: "#8a6010" },
+      "Content Moderation":               { bg: "#fdf0ec", border: "#c0522a", text: "#9a3e1e" },
       "Misinformation & Fact-Checking":   { bg: "#fdf0f0", border: "#b83a3a", text: "#922a2a" },
+      "Political Bias & Ideology":        { bg: "#f0eef8", border: "#5a3ea0", text: "#4a2e88" },
+      "Persuasion & Political Influence": { bg: "#fdf7e8", border: "#b08020", text: "#8a6010" },
       "Democracy & Public Deliberation":  { bg: "#eef2f8", border: "#3a68aa", text: "#2a5088" },
       "User Behavior & Information Effects": { bg: "#eef7f5", border: "#2a8a7a", text: "#1e6e62" },
       "Benchmarks & Evaluation":          { bg: "#f2f5ee", border: "#4a7a2e", text: "#3a6020" },
