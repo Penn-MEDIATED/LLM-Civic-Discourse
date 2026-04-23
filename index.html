@@ -827,6 +827,7 @@
       "Democracy & Public Deliberation":  { bg: "#eef2f8", border: "#3a68aa", text: "#2a5088" },
       "User Behavior & Information Effects": { bg: "#eef7f5", border: "#2a8a7a", text: "#1e6e62" },
       "Benchmarks & Evaluation":          { bg: "#f2f5ee", border: "#4a7a2e", text: "#3a6020" },
+      "Penn Research":                    { bg: "#fef3c0", border: "#e8d98a", text: "#8a6a00" },
     };
 
     const allTags = [...new Set(papers.flatMap((p) => p.tags))].sort((a, b) => {
@@ -1201,7 +1202,7 @@
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#9a9690", fontWeight: 500 }}>{paper.journal}</span>
-                      {paper.pinned && (
+                      {paper.tags.includes("Penn Research") && (
                         <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 10, letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 700, color: "#8a6a00", background: "#fef3c0", border: "1px solid #e8d98a", borderRadius: 4, padding: "2px 7px" }}>Penn Research</span>
                       )}
                     </div>
@@ -1230,7 +1231,7 @@
 
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                      {paper.tags.map((tag) => {
+                      {paper.tags.filter(tag => tag !== "Penn Research").map((tag) => {
                         const s = getTagStyle(tag);
                         return (
                           <span key={tag} style={{ padding: "3px 10px", borderRadius: 12, background: s.bg, color: s.text, fontSize: 11, fontWeight: 500, fontFamily: "'Libre Franklin', sans-serif", border: "1px solid " + s.border + "30" }}>{tag}</span>
