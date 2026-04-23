@@ -879,7 +879,7 @@
         }
         const [field, dir] = sort.split("-");
         result = [...result].sort((a, b) => {
-          if (field === "year") {
+          if (sort === "year-desc") {
             const aPenn = a.tags.includes("Penn Research");
             const bPenn = b.tags.includes("Penn Research");
             if (aPenn && !bPenn) return -1;
