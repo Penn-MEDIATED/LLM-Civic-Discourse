@@ -879,10 +879,12 @@
         }
         const [field, dir] = sort.split("-");
         result = [...result].sort((a, b) => {
-          const aPenn = a.tags.includes("Penn Research");
-          const bPenn = b.tags.includes("Penn Research");
-          if (aPenn && !bPenn) return -1;
-          if (!aPenn && bPenn) return 1;
+          if (field === "year") {
+            const aPenn = a.tags.includes("Penn Research");
+            const bPenn = b.tags.includes("Penn Research");
+            if (aPenn && !bPenn) return -1;
+            if (!aPenn && bPenn) return 1;
+          }
           let cmp;
           if (field === "year") cmp = a.year - b.year;
           else if (field === "title") cmp = a.title.localeCompare(b.title);
