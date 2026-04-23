@@ -50,7 +50,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.9/babel.min.js"></script>
 
   <script type="text/babel">
-    const { useState, useMemo } = React;
+    const { useState } = React;
 
     const papers = [
       {
@@ -856,43 +856,40 @@
         );
       };
 
-      const filtered = useMemo(() => {
-        let result = papers;
-        if (activeTags.length > 0) {
-          const pennSelected = activeTags.includes("Penn Research");
-          const themeFilters = activeTags.filter((t) => t !== "Penn Research");
-          result = result.filter((p) => {
-            const matchesTheme = themeFilters.length === 0 || themeFilters.some((t) => p.tags.includes(t));
-            const matchesPenn = !pennSelected || p.tags.includes("Penn Research");
-            return matchesTheme && matchesPenn;
-          });
-        }
-        if (search.trim()) {
-          const q = search.toLowerCase();
-          result = result.filter(
-            (p) =>
-              p.title.toLowerCase().includes(q) ||
-              p.authors.toLowerCase().includes(q) ||
-              p.summary.toLowerCase().includes(q) ||
-              p.journal.toLowerCase().includes(q)
-          );
-        }
-        const [field, dir] = sort.split("-");
-        result = [...result].sort((a, b) => {
-          if (sort === "year-desc") {
-            const aPenn = a.tags.includes("Penn Research");
-            const bPenn = b.tags.includes("Penn Research");
-            if (aPenn && !bPenn) return -1;
-            if (!aPenn && bPenn) return 1;
-          }
-          let cmp;
-          if (field === "year") cmp = a.year - b.year;
-          else if (field === "title") cmp = a.title.localeCompare(b.title);
-          else cmp = a.authors.localeCompare(b.authors);
-          return dir === "desc" ? -cmp : cmp;
+      let filtered = papers;
+      if (activeTags.length > 0) {
+        const pennSelected = activeTags.includes("Penn Research");
+        const themeFilters = activeTags.filter((t) => t !== "Penn Research");
+        filtered = filtered.filter((p) => {
+          const matchesTheme = themeFilters.length === 0 || themeFilters.some((t) => p.tags.includes(t));
+          const matchesPenn = !pennSelected || p.tags.includes("Penn Research");
+          return matchesTheme && matchesPenn;
         });
-        return result;
-      }, [activeTags, search, sort]);
+      }
+      if (search.trim()) {
+        const q = search.toLowerCase();
+        filtered = filtered.filter(
+          (p) =>
+            p.title.toLowerCase().includes(q) ||
+            p.authors.toLowerCase().includes(q) ||
+            p.summary.toLowerCase().includes(q) ||
+            p.journal.toLowerCase().includes(q)
+        );
+      }
+      const [field, dir] = sort.split("-");
+      filtered = [...filtered].sort((a, b) => {
+        if (sort === "year-desc") {
+          const aPenn = a.tags.includes("Penn Research");
+          const bPenn = b.tags.includes("Penn Research");
+          if (aPenn && !bPenn) return -1;
+          if (!aPenn && bPenn) return 1;
+        }
+        let cmp;
+        if (field === "year") cmp = a.year - b.year;
+        else if (field === "title") cmp = a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+        else cmp = a.authors < b.authors ? -1 : a.authors > b.authors ? 1 : 0;
+        return dir === "desc" ? -cmp : cmp;
+      });
 
       return (
         <div style={{ minHeight: "100vh" }}>
