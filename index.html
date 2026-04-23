@@ -859,9 +859,13 @@
       const filtered = useMemo(() => {
         let result = papers;
         if (activeTags.length > 0) {
-          result = result.filter((p) =>
-            activeTags.some((t) => p.tags.includes(t))
-          );
+          const pennSelected = activeTags.includes("Penn Research");
+          const themeFilters = activeTags.filter((t) => t !== "Penn Research");
+          result = result.filter((p) => {
+            const matchesTheme = themeFilters.length === 0 || themeFilters.some((t) => p.tags.includes(t));
+            const matchesPenn = !pennSelected || p.tags.includes("Penn Research");
+            return matchesTheme && matchesPenn;
+          });
         }
         if (search.trim()) {
           const q = search.toLowerCase();
