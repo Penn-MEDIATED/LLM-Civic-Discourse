@@ -879,8 +879,10 @@
         }
         const [field, dir] = sort.split("-");
         result = [...result].sort((a, b) => {
-          if (a.pinned && !b.pinned) return -1;
-          if (!a.pinned && b.pinned) return 1;
+          const aPenn = a.tags.includes("Penn Research");
+          const bPenn = b.tags.includes("Penn Research");
+          if (aPenn && !bPenn) return -1;
+          if (!aPenn && bPenn) return 1;
           let cmp;
           if (field === "year") cmp = a.year - b.year;
           else if (field === "title") cmp = a.title.localeCompare(b.title);
@@ -1176,28 +1178,29 @@
 
             {filtered.map((paper, idx) => {
               const expanded = expandedId === paper.id;
+              const isPenn = paper.tags.includes("Penn Research");
               return (
                 <div
                   key={paper.id}
                   onClick={() => setExpandedId(expanded ? null : paper.id)}
                   style={{
-                    background: paper.pinned ? "#fffdf5" : "#fff",
-                    border: "1px solid " + (paper.pinned ? "#e8d98a" : "#e4e1da"),
+                    background: isPenn ? "#fffdf5" : "#fff",
+                    border: "1px solid " + (isPenn ? "#e8d98a" : "#e4e1da"),
                     borderRadius: 8,
                     padding: "24px 28px",
                     cursor: "pointer",
                     transition: "all 0.25s ease",
-                    borderLeft: "3px solid " + (paper.pinned ? "#c9a800" : getTagStyle(paper.tags[0]).border),
+                    borderLeft: "3px solid " + (isPenn ? "#c9a800" : getTagStyle(paper.tags[0]).border),
                     animation: "fadeSlideIn 0.3s ease forwards",
-                    boxShadow: paper.pinned ? "0 2px 8px rgba(180,150,0,0.10)" : "0 1px 3px rgba(0,0,0,0.04)",
+                    boxShadow: isPenn ? "0 2px 8px rgba(180,150,0,0.10)" : "0 1px 3px rgba(0,0,0,0.04)",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = paper.pinned ? "0 4px 14px rgba(180,150,0,0.18)" : "0 2px 8px rgba(0,0,0,0.07)";
-                    e.currentTarget.style.borderColor = paper.pinned ? "#d4b800" : "#ccc9c2";
+                    e.currentTarget.style.boxShadow = isPenn ? "0 4px 14px rgba(180,150,0,0.18)" : "0 2px 8px rgba(0,0,0,0.07)";
+                    e.currentTarget.style.borderColor = isPenn ? "#d4b800" : "#ccc9c2";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = paper.pinned ? "0 2px 8px rgba(180,150,0,0.10)" : "0 1px 3px rgba(0,0,0,0.04)";
-                    e.currentTarget.style.borderColor = paper.pinned ? "#e8d98a" : "#e4e1da";
+                    e.currentTarget.style.boxShadow = isPenn ? "0 2px 8px rgba(180,150,0,0.10)" : "0 1px 3px rgba(0,0,0,0.04)";
+                    e.currentTarget.style.borderColor = isPenn ? "#e8d98a" : "#e4e1da";
                   }}
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
