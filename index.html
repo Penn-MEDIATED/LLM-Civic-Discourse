@@ -877,19 +877,17 @@
             p.journal.toLowerCase().includes(q)
         );
       }
-      const [field, dir] = sort.split("-");
       filtered = [...filtered].sort((a, b) => {
         if (sort === "year-desc") {
           const aPenn = a.tags.includes("Penn Research");
           const bPenn = b.tags.includes("Penn Research");
-          if (aPenn && !bPenn) return -1;
-          if (!aPenn && bPenn) return 1;
+          if (aPenn !== bPenn) return aPenn ? -1 : 1;
+          return b.year - a.year;
         }
-        let cmp;
-        if (field === "year") cmp = a.year - b.year;
-        else if (field === "title") cmp = a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-        else cmp = a.authors < b.authors ? -1 : a.authors > b.authors ? 1 : 0;
-        return dir === "desc" ? -cmp : cmp;
+        if (sort === "year-asc") return a.year - b.year;
+        if (sort === "title-asc") return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+        if (sort === "title-desc") return b.title < a.title ? -1 : b.title > a.title ? 1 : 0;
+        return 0;
       });
 
       return (
