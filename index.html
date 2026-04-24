@@ -1205,10 +1205,10 @@
                   }}
                 >
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#9a9690", fontWeight: 500 }}>{paper.journal}</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0, overflow: "hidden" }}>
+                      <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 11, letterSpacing: "1.5px", textTransform: "uppercase", color: "#9a9690", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{paper.journal}</span>
                       {paper.tags.includes("Penn Research") && (
-                        <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 10, letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 700, color: "#8a6a00", background: "#fef3c0", border: "1px solid #e8d98a", borderRadius: 4, padding: "2px 7px" }}>Penn Research</span>
+                        <span style={{ fontFamily: "'Libre Franklin', sans-serif", fontSize: 10, letterSpacing: "1.5px", textTransform: "uppercase", fontWeight: 700, color: "#8a6a00", background: "#fef3c0", border: "1px solid #e8d98a", borderRadius: 4, padding: "2px 7px", whiteSpace: "nowrap", flexShrink: 0 }}>Penn Research</span>
                       )}
                     </div>
                     <span style={{ fontFamily: "'Source Serif 4', serif", fontSize: 17, fontWeight: 700, color: getTagStyle(paper.tags[0]).border, opacity: 0.55 }}>{paper.year}</span>
