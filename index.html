@@ -464,7 +464,7 @@
         tags: ["Persuasion & Political Influence", "Democracy & Public Deliberation"],
       },
       {
-        id: 29,
+        id: 71,
         new: true,
         authors: "Chen, Z., Kalla, J., & Le, Q.",
         year: 2026,
@@ -845,8 +845,23 @@
       return TAG_COLORS[tag] || { bg: "#f4f4f2", border: "#888", text: "#555" };
     }
 
+    function applySort(list, order) {
+      return list.slice().sort(function(a, b) {
+        if (order === "year-desc") {
+          var aPenn = a.tags.includes("Penn Research");
+          var bPenn = b.tags.includes("Penn Research");
+          if (aPenn !== bPenn) return aPenn ? -1 : 1;
+          return b.year - a.year;
+        }
+        if (order === "year-asc") return a.year - b.year;
+        if (order === "title-asc") return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+        if (order === "title-desc") return b.title < a.title ? -1 : b.title > a.title ? 1 : 0;
+        return 0;
+      });
+    }
+
     function Dashboard() {
-      const [sort, setSort] = useState("year-desc");
+      const [sortOrder, setSortOrder] = useState("year-desc");
       const [activeTags, setActiveTags] = useState([]);
       const [search, setSearch] = useState("");
       const [expandedId, setExpandedId] = useState(null);
@@ -877,19 +892,7 @@
             p.journal.toLowerCase().includes(q)
         );
       }
-      filtered = [...filtered].sort((a, b) => {
-        if (sort === "year-desc") {
-          const aPenn = a.tags.includes("Penn Research");
-          const bPenn = b.tags.includes("Penn Research");
-          if (aPenn !== bPenn) return aPenn ? -1 : 1;
-          return b.year - a.year;
-        }
-        if (sort === "year-asc") return a.year - b.year;
-        if (sort === "title-asc") return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-        if (sort === "title-desc") return b.title < a.title ? -1 : b.title > a.title ? 1 : 0;
-        return 0;
-      });
-
+      filtered = applySort(filtered, sortOrder);
       return (
         <div style={{ minHeight: "100vh" }}>
           {/* Header */}
@@ -1085,8 +1088,8 @@
                 />
               </div>
               <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value)}
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
                 style={{
                   padding: "11px 32px 11px 14px",
                   borderRadius: 6,
